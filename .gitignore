@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Environment / secrets
+.env
+
+# Logs and temporary files
+logs/
+cache/
+temp/
+
+# Generated files
+outputs/
+generated/
+
+# Large AI model files
+*.pth
+*.pt
+*.ckpt
+*.safetensors
+
+# Audio/video generated during development
+*.wav
+*.mp3
+*.mp4

@@ -1,0 +1,20 @@
+[
+    {
+        "personaId": "da81b1b63e9aa690cb214e1877779f16",
+        "name": "Udaas Raten",
+        "description": "1960s Bollywood romantic ballad, slow tempo, smooth deep male vocals, legato phrasing, acoustic guitar, soft accordion, gentle bongo, melancholic romance, soothing melody, lo-fi vintage",
+        "style": "1960s Bollywood romantic ballad, slow tempo, smooth deep male vocals, legato phrasing, acoustic guitar, soft accordion, gentle bongo, melancholic romance, soothing melody, lo-fi vintage"
+    },
+    {
+        "personaId": "f364e427eae4c5737232826351469233",
+        "name": "Santanu-Similar",
+        "description": "Voice like Santanu",
+        "style": "Semiclassical Bengali modern song, melodious baritone male vocal, acoustic guitar, a soft flute, and a gentle tabla rhythm"
+    },
+    {
+        "personaId": "0ec64e6b4a6e1a60be408544fdd371f8",
+        "name": "Santanu-Rooposhi Roopkotha",
+        "description": "Song Upload - Rooposhi Roopkotha - Santanu Clone",
+        "style": "mid-tempo, modern Bengali song style, soft lyric, male vocal,  melodic and emotional, acoustic guitar, minimalist piano"
+    }
+]

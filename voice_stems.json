@@ -1,0 +1,17 @@
+[
+    {
+        "id": "a190caf67dfad7e6cd5926b7455983d8",
+        "title": "Voice Stems",
+        "workspaceId": null,
+        "sourceTrackId": null,
+        "sourceAudioUrl": "https://tempfile.redpandaai.co/sunoapiorg/209386/audio-uploads/Hariye Jaoa Smritir Pata.mp3",
+        "type": "separate_vocal",
+        "stemName": null,
+        "createdAt": 1786972883000,
+        "completedAt": 1786973000000,
+        "stems": {
+            "Vocals": "https://tempfile.aiquickdraw.com/r/a1a3f075-6559-468b-8fa7-a6c163b4e8a4_Vocals.mp3",
+            "Instrumental": "https://tempfile.aiquickdraw.com/r/03ed52bf-3ade-45a5-846c-a86fabff68b1_Instrumental.mp3"
+        }
+    }
+]
