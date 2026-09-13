@@ -1,4 +1,4 @@
-# 🎹 Suno-Powered Music Studio (v5.5)
+# 🎹 Suno-Powered Music Studio (V6)
 
 A powerful Streamlit web application that interfaces with the Suno API to create, extend, and remix music with an automated workflow.
 
@@ -8,7 +8,7 @@ A powerful Streamlit web application that interfaces with the Suno API to create
 - **🎛️ Custom Mode**: Full control over your generation. Provide custom lyrics, granular style tags, title, and toggle instrumental mode.
 - **🔁 Extend & Remix**: Continue a previously generated session song from a specific timestamp, or upload a completely new audio file to extend.
 - **🎤 Cover**: Upload an existing vocal or instrumental track and re-imagine it in an entirely new genre.
-- **🗣️ Vocal/Instrumental Overlay**: Upload an instrumental to add AI vocals, or upload an acapella to inject an instrumental backing band (utilizes v5.5 Vocal Consistency logic).
+- **🗣️ Vocal/Instrumental Overlay**: Upload an instrumental to add AI vocals, or upload an acapella to inject an instrumental backing band.
 - **🎙️ Voice Stems**: Split a generated, uploaded, or public track into vocals and instrumental accompaniment, a full instrument stem set, or a targeted instrument stem.
 - **🎭 Personas from Uploads**: Upload a song, create a generated cover from it, and turn that eligible generated track into a reusable Persona.
 - **📚 Local Library & Auto-Backup**: All generated tracks are saved to `history.json` and, after generation, downloaded into a durable local audio-backup folder. Browser download remains available as a convenience.
@@ -34,6 +34,7 @@ A powerful Streamlit web application that interfaces with the Suno API to create
      ```env
      SUNO_API_URL=http://localhost:3000   # Replace with your unofficial/hosted Suno API base URL
      SUNO_API_KEY=your_api_key_here       # If your endpoint requires a Bearer token
+     SUNO_API_MODEL=V6                    # Optional; V6 is the documented default
      SUNO_CALLBACK_URL=https://your-public-callback.example/suno  # Required by Suno; polling is used by this app
      SUNO_AUDIO_BACKUP_DIR=audio_backups  # Optional; defaults to ./audio_backups
      ```

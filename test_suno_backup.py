@@ -1,5 +1,6 @@
 import tempfile
 import unittest
+import os
 from pathlib import Path
 from unittest.mock import Mock, patch
 
@@ -22,6 +23,12 @@ class FakeSession:
 
 
 class SunoBackupTests(unittest.TestCase):
+    def test_v6_is_the_default_model_and_legacy_configuration_is_preserved(self):
+        with patch.dict(os.environ, {}, clear=True):
+            self.assertEqual(SunoClient().model, "V6")
+        with patch.dict(os.environ, {"SUNO_API_MODEL": "V5_5"}, clear=True):
+            self.assertEqual(SunoClient().model, "V5_5")
+
     def test_affected_window_is_utc_and_exclusive_at_end(self):
         self.assertTrue(is_affected_period({"createTime": "2026-08-28T20:30:00Z"}))
         self.assertFalse(is_affected_period({"createTime": "2026-08-28T21:00:00Z"}))

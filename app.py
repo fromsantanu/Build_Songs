@@ -37,7 +37,7 @@ div.stButton > button:hover {
 </style>
 """, unsafe_allow_html=True)
 
-st.title("🎹 Suno-Powered Music Studio (v5.5)")
+st.title("🎹 Suno-Powered Music Studio (V6)")
 st.caption("Create, Extend, and Remix your tracks seamlessly.")
 
 # Initialize Session State
@@ -71,13 +71,20 @@ if "pending_workspace_source" in st.session_state:
     st.session_state[source_type_key] = "Library Track ID"
     st.session_state[source_track_key] = pending_source["track_id"]
 
+# Current V6 models are listed first; retained models remain selectable for
+# existing workflows that depend on Suno API's backward compatibility.
+CURRENT_SUNO_MODELS = ["V6", "V6_WILD", "V6_MINI"]
+DEPRECATED_SUNO_MODELS = ["V5_5", "V5", "V4_5ALL", "V4_5PLUS", "V4_5", "V4"]
+SUNO_MODELS = CURRENT_SUNO_MODELS + DEPRECATED_SUNO_MODELS
+DURATION_MODELS = {"V5_5", *CURRENT_SUNO_MODELS}
+
 # Global Model Selection
 st.sidebar.title("⚙️ Configuration")
 selected_model = st.sidebar.selectbox(
     "Select Suno Model",
-    options=["V5_5", "V5", "V4_5ALL", "V4_5PLUS", "V4_5", "V4"],
+    options=SUNO_MODELS,
     index=0,
-    help="Select the AI model version to use for generation."
+    help="V6 is the recommended default. Legacy models remain available for backward compatibility."
 )
 st.session_state.suno_client.model = selected_model
 
@@ -677,10 +684,10 @@ with tabs[1]:
     st.subheader("Generation controls")
     custom_model = st.selectbox(
         "Model",
-        options=["V5_5", "V5", "V4_5PLUS", "V4_5ALL", "V4_5", "V4"],
+        options=SUNO_MODELS,
         index=0,
         key="custom_model",
-        help="V5.5 supports choosing an exact duration. V4 supports shorter text fields.",
+        help="V6 is the recommended default. Exact duration is supported by V6-series models and V5_5.",
     )
     control_col1, control_col2 = st.columns(2)
     with control_col1:
@@ -704,9 +711,9 @@ with tabs[1]:
             max_value=360,
             value=330,
             step=1,
-            disabled=custom_model != "V5_5",
+            disabled=custom_model not in DURATION_MODELS,
             key="custom_duration",
-            help="Available only for V5.5 Custom Mode. Other models let Suno choose the duration.",
+            help="Available for V6-series models and V5_5 Custom Mode. Other models let Suno choose the duration.",
         )
 
     weight_col1, weight_col2, weight_col3 = st.columns(3)
@@ -742,7 +749,7 @@ with tabs[1]:
                     make_instrumental=is_instrumental,
                     persona_id=custom_persona_id,
                     model=custom_model,
-                    duration=custom_duration if custom_model == "V5_5" else None,
+                    duration=custom_duration if custom_model in DURATION_MODELS else None,
                     negative_tags=custom_negative_tags or None,
                     vocal_gender=None if is_instrumental else vocal_options[selected_vocal],
                     style_weight=custom_style_weight,
@@ -871,8 +878,8 @@ with tabs[3]:
     cov_vocal_options = {"No preference": None, "Male vocal": "m", "Female vocal": "f"}
     cov_vocal_label = st.selectbox("Vocal preference", list(cov_vocal_options), disabled=cov_instrumental, key="cov_vocal_gender")
     cov_duration = st.slider(
-        "Duration (seconds)", 10, 360, 330, 1, disabled=selected_model != "V5_5", key="cov_duration",
-        help="Available when the model in the sidebar is V5.5.",
+        "Duration (seconds)", 10, 360, 330, 1, disabled=selected_model not in DURATION_MODELS, key="cov_duration",
+        help="Available when the sidebar model is V6-series or V5_5.",
     )
     cov_weight_1, cov_weight_2, cov_weight_3 = st.columns(3)
     with cov_weight_1:
@@ -932,7 +939,7 @@ with tabs[3]:
                         title=cov_title,
                         make_instrumental=cov_instrumental,
                         persona_id=cov_persona_id,
-                        duration=cov_duration if selected_model == "V5_5" else None,
+                        duration=cov_duration if selected_model in DURATION_MODELS else None,
                         negative_tags=cov_negative_tags or None,
                         vocal_gender=None if cov_instrumental else cov_vocal_options[cov_vocal_label],
                         style_weight=cov_style_weight,
@@ -983,9 +990,9 @@ with tabs[4]:
         over_style = ""
     over_model = st.selectbox(
         "Generation model",
-        ["V5_5", "V5", "V4_5PLUS"],
+        SUNO_MODELS,
         key="over_model",
-        help="These are the models supported by the Add Vocals and Add Instrumental endpoints.",
+        help="V6-series models are recommended. Legacy models remain available for backward compatibility.",
     )
     over_vocal_options = {"No preference": None, "Male vocal": "m", "Female vocal": "f"}
     over_vocal_label = st.selectbox("Vocal preference", list(over_vocal_options), key="over_vocal_gender")
@@ -1319,9 +1326,9 @@ with tabs[7]:
                 max_value=360,
                 value=330,
                 step=1,
-                disabled=selected_model != "V5_5",
+                disabled=selected_model not in DURATION_MODELS,
                 key="persona_upload_duration",
-                help="Available when the model in the sidebar is V5.5.",
+                help="Available when the sidebar model is V6-series or V5_5.",
             )
             p_upload_lyrics = st.text_area(
                 "Lyrics for the generated cover",
@@ -1371,7 +1378,7 @@ with tabs[7]:
                                     style=p_upload_style,
                                     title=p_upload_title,
                                     make_instrumental=p_upload_instrumental,
-                                    duration=p_upload_duration if selected_model == "V5_5" else None,
+                                    duration=p_upload_duration if selected_model in DURATION_MODELS else None,
                                 )
                                 task_ids = extract_task_ids(cover_result)
                                 if not task_ids:

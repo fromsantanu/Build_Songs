@@ -9,7 +9,9 @@ class SunoClient:
     def __init__(self, base_url=None, api_key=None):
         self.base_url = base_url or os.getenv("SUNO_API_URL", "https://api.sunoapi.org")
         self.api_key = api_key or os.getenv("SUNO_API_KEY", "")
-        self.model = os.getenv("SUNO_API_MODEL", "V5_5") # Default to Suno V5
+        # V6 is Suno API's documented default. Legacy model values are still
+        # accepted by the provider for backward compatibility.
+        self.model = os.getenv("SUNO_API_MODEL", "V6")
         self.callback_url = os.getenv("SUNO_CALLBACK_URL", "https://api.sunoapi.org/dummy-callback")
 
     def _get_headers(self):
